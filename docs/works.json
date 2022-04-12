@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ポートフォリオの制作物・実績API",
+    "version": "1.0",
+    "description": ""
+  },
+
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+
+  "paths": {
+    "/api/internal/works": {
+      "get": {
+        "description": "制作物・実績一覧を取得します。",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "制作物・実績一覧",
+                  "type": "array",
+                  "items": {
+                    "title": "制作物・実績",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "title": "workId(uuid想定)",
+                        "type": "string",
+                        "example": "workId1"
+                      },
+                      "type": {
+                        "title": "type: webEngineer | personal",
+                        "type": "string",
+                        "example": "personal"
+                      },
+                      "ord": {
+                        "title": "表示順序",
+                        "type": "number",
+                        "example": 1
+                      },
+                      "category": {
+                        "title": "制作物・実績のカテゴリ",
+                        "type": "string",
+                        "example": "保守開発"
+                      },
+                      "work": {
+                        "title": "制作物・実績内容",
+                        "type": "string",
+                        "example": "ポートフォリオ"
+                      },
+                      "detail": {
+                        "title": "制作物・実績内容詳細",
+                        "type": "string",
+                        "example": "React使ってポートフォリオを作りました。"
+                      },
+                      "writtenAt": {
+                        "title": "記載日",
+                        "type": "string",
+                        "example": "2022/04/11"
+                      },
+                      "writtenBy": {
+                        "title": "記載者",
+                        "type": "string",
+                        "example": "にらんけん"
+                      },
+                      "linkUrl": {
+                        "title": "workに関するリンクURL",
+                        "type": "string",
+                        "example": "https://github.com/NIRANKEN/niranken-portfolio"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

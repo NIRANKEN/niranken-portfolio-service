@@ -6,7 +6,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'works',
+        path: 'appeals',
         authorizer: {
           name: 'authorizer',
           resultTtlInSeconds: 0,

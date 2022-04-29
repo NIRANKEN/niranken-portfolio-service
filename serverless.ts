@@ -1,12 +1,11 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
-import getWorks from '@functions/getWorks';
+import * as functions from '@functions/index';
 
 const serverlessConfiguration: AWS = {
   service: 'niranken-portfolio-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -22,7 +21,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, getWorks },
+  functions,
   package: { individually: true },
   custom: {
     esbuild: {

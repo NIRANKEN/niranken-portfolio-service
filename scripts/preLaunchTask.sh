@@ -15,10 +15,8 @@ if [[ "$currentDir"=="*niranken-portfolio-service*" ]]; then
   export EDITOR=vim
   export $(aws-vault exec $profile_name --prompt=terminal -- env | grep AWS_ | grep -v AWS_VAULT)
   echo "AWS_VAULTの設定を実施します... (Done)"
-  exit 0
 fi
 
 unset AWS_DEFAULT_REGION
 unset AWS_ACCESS_KEY_ID
 unset AWS_SECRET_ACCESS_KEY
-exit 1

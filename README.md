@@ -98,4 +98,5 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 
 ```bash
 curl -X POST "${URL}" -H "Content-Type: application/json" -d "{name: NIRANKEN}"
+curl http://localhost:3000/dev/about -H "Authorization: ******"
 ```

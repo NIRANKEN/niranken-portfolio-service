@@ -59,4 +59,15 @@ export const mockedWorks: Work[] = [
     writtenAt: 'YYYY-MM-DD',
     writtenBy: 'にらんけん',
   },
+  {
+    id: 'personalWorkId3',
+    type: 'personal',
+    ord: 3,
+    category: 'WebAPI',
+    work: 'ポートフォリオAPI',
+    detail: `Typescript, ServerlessFramework, AWSLambda, DynamoDBを使って現在開発中...`,
+    linkUrl: 'https://github.com/NIRANKEN/niranken-portfolio-service',
+    writtenAt: 'YYYY-MM-DD',
+    writtenBy: 'にらんけん',
+  }
 ];

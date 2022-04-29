@@ -1,4 +1,4 @@
-import { Work } from "./Work";
+import { Work } from './Work';
 
 /* TODO: モックデータ。取得経路をDBから取得するように修正する */
 export const mockedWorks: Work[] = [
@@ -20,7 +20,7 @@ export const mockedWorks: Work[] = [
     ord: 2,
     category: '新規開発',
     work: '既存基盤での新機能開発と、新基盤での新機能開発(MSA)',
-    detail: `巷でよく使われているReactやTypescript, AWS Lambdaなどを経験でき、JavaScriptを直接書くよりも便利だ～と思った(感想)。
+    detail: `巷でよく使われているReactやTypescript, AWS Lambdaなどを経験でき、JavaScriptを直接書くよりも開発や保守がしやすくて便利だと実感できた。
     スクラムでの開発も初めて経験して、みんなでコミュニケーションとりながら協力して開発できたので、一人で背負い込むことなく楽しく開発してました。`,
     writtenAt: 'YYYY-MM-DD',
     writtenBy: 'にらんけん',
@@ -32,7 +32,7 @@ export const mockedWorks: Work[] = [
     category: '品質改善・CI/CD',
     work: 'JUnitの導入、ビルドジョブの改修・保守',
     detail: `「Windowsバッチでファイルパスベタ書きでのビルド、Eclipse4.5での開発、ユニットテストがない」など、正直開発がしんどい環境でした。
-    なので、ビルドのPipeline化をしたり、Eclipse最新にしたり、JUnit導入してサンプルのテスト書いて布教したり…。
+    なので、ビルドのPipeline化をしたり、Eclipse最新にしたり、JUnit使った開発基盤を導入してサンプルのテスト書いて布教したり…。
     MSA開発時は、ユニットテスト(Jest)だけでなくE2Eテスト(Cypress)も経験できました。`,
     writtenAt: 'YYYY-MM-DD',
     writtenBy: 'にらんけん',

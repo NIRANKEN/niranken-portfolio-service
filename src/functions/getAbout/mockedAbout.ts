@@ -1,6 +1,7 @@
 import { About } from './About';
 
 export const mockedAbout: About = {
+  id: 'niranken',
   selfIntroduction: `こんにちは、「にらんけん」です。
   普段はWebエンジニアとして働いています。
   プログラミング歴は独学(研究室時代)3年 + 社会人(Webエンジニア)4年で、なんだかんだで7年くらいです。

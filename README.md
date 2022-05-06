@@ -100,3 +100,13 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 curl -X POST "${URL}" -H "Content-Type: application/json" -d "{name: NIRANKEN}"
 curl http://localhost:3000/dev/about -H "Authorization: ******"
 ```
+
+# introduce dynamodb
+`sudo chmod -R 777 ./docker`
+
+dynamodbのcliの使い方
+https://www.wakuwakubank.com/posts/675-aws-cli-dynamodb/
+
+```bash
+aws dynamodb scan --table-name works --endpoint-url http://localhost:8000
+```

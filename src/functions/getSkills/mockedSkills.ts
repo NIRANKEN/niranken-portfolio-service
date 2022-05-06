@@ -3,6 +3,7 @@ import { Skill } from './Skill';
 export const mockedSkills: Skill[] = [
   {
     id: 'front-end',
+    ord: 1,
     title: 'フロントエンド',
     colorCode: '#abd699',
     explanation: `# フロントエンドの評価点のイメージ
@@ -63,6 +64,7 @@ export const mockedSkills: Skill[] = [
   },
   {
     id: 'back-end',
+    ord: 2,
     title: 'バックエンド',
     explanation: `# バックエンドの評価点イメージ
 
@@ -107,6 +109,7 @@ export const mockedSkills: Skill[] = [
   },
   {
     id: 'infra',
+    ord: 3,
     title: 'インフラ',
     explanation: `# インフラまわりの評価点のイメージ
 
@@ -155,6 +158,7 @@ export const mockedSkills: Skill[] = [
   },
   {
     id: 'ci/cd',
+    ord: 4,
     title: 'CI/CD',
     explanation: `# CI/CDの評価点のイメージ
 

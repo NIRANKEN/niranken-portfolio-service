@@ -1,5 +1,6 @@
 export type Chart = {
   id: string;
+  ord: number;
   title: string;
   explanation: string;
   colorCode: string;

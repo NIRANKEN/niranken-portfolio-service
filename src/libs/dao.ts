@@ -36,6 +36,21 @@ export const scanAll = async (param: DynamoDB.DocumentClient.ScanInput) => {
   }
 };
 
+export const get = async (param: DynamoDB.DocumentClient.GetItemInput) => {
+  const docClient = new DynamoDB.DocumentClient(
+    process.env.IS_LOCAL ? offlineOption : onlineOption
+  );
+  try {
+    return (await docClient.get(param).promise()).Item;
+  } catch (err) {
+    console.error(
+      'Unable to get the table item. Error JSON:',
+      JSON.stringify(err, null, 2)
+    );
+  }
+}
+
 export default {
   scanAll,
+  get,
 }

@@ -57,7 +57,7 @@
     "ord": 3,
     "category": "WebAPI",
     "work": "ポートフォリオAPI",
-    "detail": "Typescript, ServerlessFramework, AWSLambda, DynamoDBを使って現在開発中...",
+    "detail": "Typescript, ServerlessFramework, AWSLambda, DynamoDBを使って簡単なデータ取得APIを作りました",
     "linkUrl": "https://github.com/NIRANKEN/niranken-portfolio-service",
     "writtenAt": "YYYY-MM-DD",
     "writtenBy": "にらんけん"

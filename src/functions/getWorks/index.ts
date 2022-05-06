@@ -12,7 +12,8 @@ export default {
           resultTtlInSeconds: 0,
         },
         cors: {
-          origin: 'http://deploy-niranken-portfolio.s3-website-ap-northeast-1.amazonaws.com',
+          origin:
+            'http://deploy-niranken-portfolio.s3-website-ap-northeast-1.amazonaws.com',
           headers: [
             'Content-Type',
             'X-Amz-Date',

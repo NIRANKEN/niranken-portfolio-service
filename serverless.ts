@@ -1,11 +1,12 @@
 import type { AWS } from '@serverless/typescript';
 
 import * as functions from '@functions/index';
+import { Resources } from '@resources/index';
 
 const serverlessConfiguration: AWS = {
   service: 'niranken-portfolio-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -34,6 +35,31 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
+    dynamodb: {
+      stages: ['dev'],
+      start: {
+        port: 8000,
+        noStart: true,
+        inMemory: true,
+        migrate: true,
+        seed: true,
+      },
+      seed: {
+        test: {
+          sources: [
+            {
+              table: 'works',
+              sources: [
+                './__seeds__/Works.json'
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  resources: {
+    Resources,
   },
 };
 

@@ -2,7 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 import * as functions from '@functions/index';
 import { Resources } from '@resources/index';
-import seed from 'src/seed/index';
+import seed, { seedList } from 'src/seed/index';
 
 const serverlessConfiguration: AWS = {
   service: 'niranken-portfolio-service',
@@ -53,7 +53,7 @@ const serverlessConfiguration: AWS = {
       },
       seed: {
         test: {
-          sources: [seed.seedWorks],
+          sources: seedList,
         },
       },
     },

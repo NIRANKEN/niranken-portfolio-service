@@ -3,6 +3,7 @@ import { Appeal } from "./Appeal";
 export const mockedAppeals: Appeal[] = [
   {
     id: 'appeal1',
+    ord: 1,
     appeal: '1. Java6~8 + SpringFramework + Mavenを直近よく使ってました',
     detail: `JavaであればMVCを意識したコードを書いてきたので、ある程度すぐに戦力として活躍できるかなと思います。
     mavenコマンドを使ったプレマージでのユニットテスト実行基盤の整備やビルド・デプロイの保守も実施してきました。`,
@@ -13,6 +14,7 @@ export const mockedAppeals: Appeal[] = [
   },
   {
     id: 'appeal2',
+    ord: 2,
     appeal: '2. CI/CDの構築や、CUIでのLinuxコマンドを使った操作が得意です',
     detail: `3年前からJenkinsの保守運用やってきました。最近GitLab-CIにも手を付けてます。
     単調作業が嫌いなので、何かとgrep/sed/sortなどを組み合わせてスクリプト書いて対応することが多いです。
@@ -24,6 +26,7 @@ export const mockedAppeals: Appeal[] = [
   },
   {
     id: 'appeal3',
+    ord: 3,
     appeal: '3. 積極的に知らないことを勉強してコミットします！',
     detail: `研究室時代に、C++、bash、Qtを独学して、物理のシミュレーション研究していました。
     知らないことにチャレンジして勉強することが好きなので、

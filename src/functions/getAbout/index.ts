@@ -27,4 +27,12 @@ export default {
       },
     },
   ],
+  iamRoleStatementsInherit: true,
+  iamRoleStatements: [
+    {
+      Effect: 'Allow',
+      Action: ['dynamodb:GetItem'],
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/about',
+    },
+  ],
 };

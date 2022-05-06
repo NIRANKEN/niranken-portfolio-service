@@ -31,7 +31,7 @@ export const formatJSONResponse = (
 ) => {
   return {
     statusCode: 200,
-    ...headers,
+    ...{headers},
     body: JSON.stringify(response),
   };
 };
@@ -42,7 +42,7 @@ export const formatErrorJSONResponse = (
 ) => {
   return {
     statusCode: statusCode,
-    ...headers,
+    ...{headers},
     body: JSON.stringify({
       message,
     }),

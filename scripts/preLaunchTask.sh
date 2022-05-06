@@ -1,12 +1,12 @@
 #!/bin/bash
 set -euxo pipefail
 
-profile_name="niranken"
 currentDir=`pwd -P`
 echo $currentDir
 
 if [[ "$currentDir"=="*niranken-portfolio-service*" ]]; then
   echo "AWS_VAULTの設定を実施します..."
+  profile_name="niranken"
   export AWS_VAULT_BACKEND=pass
   export AWS_VAULT_PASS_PREFIX=aws-vault
   export AWS_SESSION_TOKEN_TTL=3h

@@ -5,8 +5,10 @@
   "main": "serverless.ts",
   "scripts": {
     "start": "IS_LOCAL=true sls offline start --noTimeout",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:db": "docker-compose up -d"
+    "start:db": "docker-compose up -d",
+    "test": "echo \"TODO: implements with jest\" && exit 1",
+    "deploy": "sls deploy",
+    "deploy:db": "sls dynamodb:seed"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -30,7 +32,9 @@
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^3.0.0",
     "serverless-dynamodb-local": "^0.2.40",
+    "serverless-dynamodb-seed": "^0.3.0",
     "serverless-esbuild": "^1.23.3",
+    "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^8.7.0",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",

@@ -2,11 +2,18 @@ import type { AWS } from '@serverless/typescript';
 
 import * as functions from '@functions/index';
 import { Resources } from '@resources/index';
+import seed from 'src/seed/index';
 
 const serverlessConfiguration: AWS = {
   service: 'niranken-portfolio-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-dynamodb-local',
+    'serverless-dynamodb-seed',
+    'serverless-iam-roles-per-function',
+    'serverless-offline',
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -46,17 +53,11 @@ const serverlessConfiguration: AWS = {
       },
       seed: {
         test: {
-          sources: [
-            {
-              table: 'works',
-              sources: [
-                './__seeds__/Works.json'
-              ]
-            }
-          ]
-        }
-      }
-    }
+          sources: [seed.seedWorks],
+        },
+      },
+    },
+    seed,
   },
   resources: {
     Resources,

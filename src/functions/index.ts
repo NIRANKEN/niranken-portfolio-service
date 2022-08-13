@@ -3,3 +3,4 @@ export { default as getAbout } from './getAbout';
 export { default as getWorks } from './getWorks';
 export { default as getAppeals } from './getAppeals';
 export { default as getSkills } from './getSkills';
+export { default as sendContactMessage } from './sendContactMessage';

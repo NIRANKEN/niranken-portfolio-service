@@ -21,7 +21,7 @@ const headers = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Origin': process.env.IS_LOCAL
     ? 'http://localhost:9000'
-    : 'http://deploy-niranken-portfolio.s3-website-ap-northeast-1.amazonaws.com',
+    : 'https://profile.niranken.tk',
   'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
   'Access-Control-Allow-Credentials': 'true',
 };

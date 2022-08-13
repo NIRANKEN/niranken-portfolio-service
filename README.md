@@ -96,17 +96,21 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 
 # niranken-portfolio-service
 
+## test with curl
 ```bash
-curl -X POST "${URL}" -H "Content-Type: application/json" -d "{name: NIRANKEN}"
+curl -X POST "${URL}" -H "Content-Type: application/json" -H "Authorization: ******" -d "{name: NIRANKEN}"
 curl http://localhost:3000/dev/about -H "Authorization: ******"
 ```
 
-# introduce dynamodb
+## introduce dynamodb
 `sudo chmod -R 777 ./docker`
+https://stackoverflow.com/questions/45850688/unable-to-open-local-dynamodb-database-file-after-power-outage
 
 dynamodbのcliの使い方
 https://www.wakuwakubank.com/posts/675-aws-cli-dynamodb/
+https://qiita.com/katsuhiko/items/a2594e73108728a22410
 
 ```bash
 aws dynamodb scan --table-name works --endpoint-url http://localhost:8000
 ```
+

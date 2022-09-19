@@ -35,6 +35,17 @@ const sendEmail = async (
   const body = event.body;
 
   var result: APIGatewayProxyResult = undefined;
+  if (
+    body.name.length === 0 ||
+    body.email.length === 0 ||
+    body.message.length === 0
+  ) {
+    return {
+      statusCode: 502,
+      body: JSON.stringify({}),
+    };
+  }
+
   const sendEmailRequest = await ses.sendEmail({
     Destination: {
       ToAddresses: ['mayatecholab.kimura@gmail.com'],
@@ -84,7 +95,7 @@ const sendEmail = async (
     }
   });
 
-  // TODO: 多分BestPracticeありそう
+  // TODO: リファクタ
   while (!result) {
     console.log('wait 1 second...');
     await new Promise((resolve) => setTimeout(resolve, 1000));

@@ -12,8 +12,7 @@ export default {
           resultTtlInSeconds: 0,
         },
         cors: {
-          origin:
-            'https://profile.niranken.tk',
+          origin: 'https://profile.niranken.tk',
           headers: [
             'Content-Type',
             'X-Amz-Date',
@@ -25,6 +24,14 @@ export default {
           allowCredentials: true,
         },
       },
+    },
+  ],
+  iamRoleStatementsInherit: true,
+  iamRoleStatements: [
+    {
+      Effect: 'Allow',
+      Action: ['ses:SendEmail'],
+      Resource: '*',
     },
   ],
 };

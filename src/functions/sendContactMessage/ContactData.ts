@@ -5,8 +5,8 @@ export type ContactData = {
 }
 
 export type SendContactMessageResult = {
+  id: string;
   name: string;
   email: string;
   message: string;
-  errorDetail: string;
 }

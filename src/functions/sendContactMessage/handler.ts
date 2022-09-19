@@ -1,9 +1,11 @@
 import {
+  formatErrorJSONResponse,
+  formatJSONResponse,
   ValidatedAPIGatewayProxyEvent,
+  ValidatedAPIGatewayProxyResult,
   ValidatedEventAPIGatewayProxyEvent,
 } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { APIGatewayProxyResult } from 'aws-lambda';
 import { SES } from 'aws-sdk';
 
 type schema = {
@@ -21,7 +23,27 @@ type schema = {
   };
 };
 
+type schemaResponse = {
+  type: 'object';
+  properties: {
+    id: {
+      type: 'string';
+    };
+    name: {
+      type: 'string';
+    };
+    email: {
+      type: 'string';
+    };
+    message: {
+      type: 'string';
+    };
+  };
+};
+
 const ses = new SES({ region: 'ap-northeast-1' });
+
+const adminEmail = 'test@example.com';
 
 const sendContactMessage: ValidatedEventAPIGatewayProxyEvent<schema> = async (
   event
@@ -31,10 +53,10 @@ const sendContactMessage: ValidatedEventAPIGatewayProxyEvent<schema> = async (
 
 const sendEmail = async (
   event: ValidatedAPIGatewayProxyEvent<schema>
-): Promise<APIGatewayProxyResult> => {
+): Promise<ValidatedAPIGatewayProxyResult<schemaResponse>> => {
   const body = event.body;
 
-  var result: APIGatewayProxyResult = undefined;
+  var result: ValidatedAPIGatewayProxyResult<schemaResponse> = undefined;
   if (
     body.name.length === 0 ||
     body.email.length === 0 ||
@@ -42,13 +64,13 @@ const sendEmail = async (
   ) {
     return {
       statusCode: 502,
-      body: JSON.stringify({}),
+      body: {},
     };
   }
 
   const sendEmailRequest = await ses.sendEmail({
     Destination: {
-      ToAddresses: ['test@example.com'],
+      ToAddresses: [adminEmail],
     },
     Message: {
       Body: {
@@ -67,7 +89,7 @@ const sendEmail = async (
         Data: 'Test Email Subject',
       },
     },
-    Source: 'test@example.com',
+    Source: adminEmail,
   });
   sendEmailRequest.send((err, data) => {
     console.log(err);
@@ -75,22 +97,26 @@ const sendEmail = async (
     if (data) {
       result = {
         statusCode: 200,
-        body: JSON.stringify({
+        body: {
           id: '1',
           name: body.name,
           email: body.email,
           message: body.message,
-        }),
+        },
       };
     } else if (err) {
       result = {
         statusCode: err.statusCode,
-        body: JSON.stringify({}),
+        body: {
+          message: err.message,
+        },
       };
     } else {
       result = {
         statusCode: 502,
-        body: JSON.stringify({}),
+        body: {
+          message: 'failed to send before ses.sendEmail.send() call.',
+        },
       };
     }
   });
@@ -104,7 +130,11 @@ const sendEmail = async (
   return result;
 };
 
-const formatResult = async (result: APIGatewayProxyResult) =>
-  result.statusCode ? result : { statusCode: 502, body: JSON.stringify({}) };
+const formatResult = async (
+  result: ValidatedAPIGatewayProxyResult<schemaResponse>
+) =>
+  result.statusCode == 200
+    ? formatJSONResponse(result.body)
+    : formatErrorJSONResponse(502, result.body.message);
 
 export const main = middyfy(sendContactMessage);

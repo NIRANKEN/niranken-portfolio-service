@@ -48,7 +48,7 @@ const sendEmail = async (
 
   const sendEmailRequest = await ses.sendEmail({
     Destination: {
-      ToAddresses: ['mayatecholab.kimura@gmail.com'],
+      ToAddresses: ['test@example.com'],
     },
     Message: {
       Body: {
@@ -67,7 +67,7 @@ const sendEmail = async (
         Data: 'Test Email Subject',
       },
     },
-    Source: 'mayatecholab.portfolio@gmail.com',
+    Source: 'test@example.com',
   });
   sendEmailRequest.send((err, data) => {
     console.log(err);

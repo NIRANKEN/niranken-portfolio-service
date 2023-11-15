@@ -1,27 +1,32 @@
 import * as cdk from "aws-cdk-lib";
-import { Construct } from "constructs";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
 import { createTable } from "./dynamodb/tables";
 import { createAuthorizerHandler, createHandler } from "./lambda";
 import { createApi } from "./apigateway";
+import { EnvType } from "./types";
+
+type ServiceProps = {
+  envType: EnvType;
+  corsAllowOrigins: string[];
+};
 
 export class NirankenPortfolioServiceStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+  constructor(scope: cdk.App, id: string, props: ServiceProps) {
+    super(scope, id);
 
     // 1. DynamoDB
     // create dynamodb tables
-    const aboutTable = createTable(this, 'aboutTable', 'about');
-    const worksTable = createTable(this, 'worksTable', 'works');
-    const appealsTable = createTable(this, 'appealsTable', 'appeals');
-    const skillsTable = createTable(this, 'skillsTable', 'skills');
+    const aboutTable = createTable(this, 'aboutTable', 'about', props.envType);
+    const worksTable = createTable(this, 'worksTable', 'works', props.envType);
+    const appealsTable = createTable(this, 'appealsTable', 'appeals', props.envType);
+    const skillsTable = createTable(this, 'skillsTable', 'skills', props.envType);
 
     // 2. Lambda
     // create lambda Functions
-    const aboutHandler = createHandler(this, 'GET', 'about', 'AboutHandler');
-    const worksHandler = createHandler(this, 'GET', 'works', 'WorksHandler');
-    const appealsHandler = createHandler(this, 'GET', 'appeals', 'AppealsHandler');
-    const skillsHandler = createHandler(this, 'GET', 'skills', 'SkillsHandler');
+    const aboutHandler = createHandler(this, 'GET', 'about', 'AboutHandler', props.envType);
+    const worksHandler = createHandler(this, 'GET', 'works', 'WorksHandler', props.envType);
+    const appealsHandler = createHandler(this, 'GET', 'appeals', 'AppealsHandler', props.envType);
+    const skillsHandler = createHandler(this, 'GET', 'skills', 'SkillsHandler', props.envType);
     const handlers = [aboutHandler, worksHandler, appealsHandler, skillsHandler];
 
     // grant read/write permission to lambda functions
@@ -31,20 +36,20 @@ export class NirankenPortfolioServiceStack extends cdk.Stack {
     skillsTable.grantReadData(skillsHandler.handler);
 
     // create Authorizer
-    const authorizer = createAuthorizerHandler(this);
+    const authorizer = createAuthorizerHandler(this, props.envType);
 
     // 3. ApiGateway
-    const restApi = new apigateway.RestApi(this, "Endpoint");
+    const restApi = new apigateway.RestApi(this, `Endpoint-${props.envType}`);
     const v1 = restApi.root.addResource("v1");
 
-    const auth = new apigateway.TokenAuthorizer(this, "NewTokenAuthorizer", {
+    const auth = new apigateway.TokenAuthorizer(this, `NewTokenAuthorizer-${props.envType}`, {
       handler: authorizer,
       identitySource: "method.request.header.Authorization",
     });
 
     // add lambda handlers to api
     handlers.forEach((handler) => {
-      createApi(v1, handler, auth);
+      createApi(v1, handler, auth, props.corsAllowOrigins);
     });
   }
 }

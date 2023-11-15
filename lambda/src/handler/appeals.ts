@@ -7,7 +7,8 @@ import {
 } from '../lib/responses';
 
 const appealsHandler: NoSchemaAPIGatewayProxyEvent = async (_event) => {
-  const result = await scanAll({ TableName: 'appeals' });
+  const tableName = process.env.ENV_TYPE === 'development' ? 'appeals-development' : 'appeals';
+  const result = await scanAll({ TableName: tableName });
   if (!result) {
     throw formatErrorJSONResponse(404, 'appeals are not found.');
   }

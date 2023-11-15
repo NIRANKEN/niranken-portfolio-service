@@ -2,19 +2,28 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { NirankenPortfolioServiceStack } from '../lib/niranken-portfolio-service-stack';
+import { EnvType } from '../lib/types';
+
+
+const getCorsAllowOrigins = (envType: EnvType): string[] => {
+  switch (envType) {
+    case "production":
+      return ["https://portfolio.mayatecholab.com"];
+    case "development":
+      return [
+        "http://localhost:9000",
+      ];
+  }
+};
 
 const app = new cdk.App();
-new NirankenPortfolioServiceStack(app, 'NirankenPortfolioServiceStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
+const envType = app.node.tryGetContext('envType') as EnvType;
+if (!envType) {
+  throw new Error("envType is not defined.");
+}
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+new NirankenPortfolioServiceStack(app, `NirankenPortfolioServiceStack-${envType}`, {
+  envType,
+  corsAllowOrigins: getCorsAllowOrigins(envType),
 });
+

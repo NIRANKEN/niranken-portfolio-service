@@ -7,7 +7,8 @@ import {
 } from '../lib/responses';
 
 const worksHandler: NoSchemaAPIGatewayProxyEvent = async (_event) => {
-  const result = await scanAll({ TableName: 'works'});
+  const tableName = process.env.ENV_TYPE === 'development' ? 'works-development' : 'works';
+  const result = await scanAll({ TableName: tableName});
   if (!result) {
     throw formatErrorJSONResponse(404, 'works are not found.');
   }

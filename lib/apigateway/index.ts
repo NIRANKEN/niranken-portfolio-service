@@ -10,7 +10,8 @@ import { LambdaHandler } from '../lambda';
 export const createApi = (
   resource: Resource,
   lambdaHandler: LambdaHandler,
-  auth: TokenAuthorizer
+  auth: TokenAuthorizer,
+  corsAllowOrigins: string[],
 ) => {
   const api = resource.addResource(lambdaHandler.name);
   api.addMethod(
@@ -21,11 +22,10 @@ export const createApi = (
     }
   );
   api.addCorsPreflight({
-    allowOrigins: ['https://portfolio.mayatecholab.com', 'http://localhost:9000'],
-    allowMethods: Cors.ALL_METHODS,
+    allowOrigins: corsAllowOrigins,
+    allowMethods: ["OPTIONS", "GET", "POST"],
     allowHeaders: Cors.DEFAULT_HEADERS,
     allowCredentials: true,
     statusCode: 200,
-    disableCache: true,
   });
 };

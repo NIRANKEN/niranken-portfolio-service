@@ -2,11 +2,12 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { DynamoDBSeeder, Seeds } from '@cloudcomponents/cdk-dynamodb-seeder';
 import path = require('path');
-import { TableName } from '../../types';
+import { EnvType, TableName } from '../../types';
+import { Construct } from 'constructs';
 
-export const createTable = (stack: Stack, id: string, tableName: TableName) => {
-  const table = new dynamodb.Table(stack, id, {
-    tableName,
+export const createTable = (stack: Stack, id: string, tableName: TableName, envType: EnvType) => {
+  const table = new dynamodb.Table(stack, `${id}-${envType}`, {
+    tableName: envType === "production" ? tableName : `${tableName}-${envType}`,
     partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
     removalPolicy: RemovalPolicy.DESTROY,
   });

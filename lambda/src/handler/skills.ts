@@ -7,7 +7,8 @@ import {
 } from '../lib/responses';
 
 const skillsHandler: NoSchemaAPIGatewayProxyEvent = async (_event) => {
-  const result = await scanAll({ TableName: 'skills' });
+  const tableName = process.env.ENV_TYPE === 'development' ? 'skills-development' : 'skills';
+  const result = await scanAll({ TableName: tableName });
   if (!result) {
     throw formatErrorJSONResponse(404, 'skills are not found.');
   }
